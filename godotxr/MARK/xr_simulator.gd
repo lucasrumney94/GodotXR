@@ -30,6 +30,7 @@ func enable_simulator(setting: bool = true):
 	enabled = setting
 	get_viewport().use_xr = !setting
 	if enabled:
+		get_viewport().grab_focus()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

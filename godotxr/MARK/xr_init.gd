@@ -2,6 +2,7 @@ extends XROrigin3D
 
 
 @export var xr_simulator_scene: PackedScene
+@export var side_window: PackedScene
 
 var xr_interface : XRInterface
 var current_interface_name: String = "OpenXR"
@@ -10,6 +11,7 @@ var xr_simulator : XRSimulator
 
 func _ready() -> void:
 	%SimulatorButton.toggled.connect(on_simulator_toggled)
+	add_side_window()
 	
 	print(str(XRServer.get_interfaces()))
 	initiate_xr_interface("OpenXR")
@@ -72,6 +74,20 @@ func initiate_xr_simulator():
 				xr_right = child
 	xr_simulator.setup_simulator(xr_cam, xr_left, xr_right)
 	xr_simulator.enable_simulator()
+
+
+func add_side_window():
+	get_viewport().set_embedding_subwindows(false)
+	var sw = side_window.instantiate()
+	add_child(sw)
+	sw.position = Vector2(800, 800)
+	sw.title = "Side Piece"
+	sw.size = Vector2(300, 200)
+	Callable(finish_side_window.bind(sw)).call_deferred()
+
+
+func finish_side_window(sw: Window):
+	%SimulatorButton.get_parent().reparent(sw)
 
 
 func on_simulator_toggled(is_toggled: bool):

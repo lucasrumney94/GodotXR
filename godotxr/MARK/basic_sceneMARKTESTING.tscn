@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://htfpppofcjt8"]
+[gd_scene load_steps=9 format=3 uid="uid://htfpppofcjt8"]
 
 [ext_resource type="Script" path="res://MARK/xr_init.gd" id="1_ycatt"]
 [ext_resource type="PackedScene" uid="uid://bjtgldockyfwh" path="res://MARK/xr_simulator.tscn" id="2_jyy8p"]
+[ext_resource type="PackedScene" uid="uid://bwo4obi4ntn2f" path="res://MARK/side_window.tscn" id="3_6expg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7anml"]
 albedo_color = Color(0, 0, 1, 1)
@@ -26,6 +27,7 @@ height = 0.2
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 script = ExtResource("1_ycatt")
 xr_simulator_scene = ExtResource("2_jyy8p")
+side_window = ExtResource("3_6expg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="XROrigin3D"]
 
