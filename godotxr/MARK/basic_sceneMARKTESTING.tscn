@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://htfpppofcjt8"]
+
+[ext_resource type="Script" path="res://MARK/xr_init.gd" id="1_ycatt"]
+[ext_resource type="PackedScene" uid="uid://bjtgldockyfwh" path="res://MARK/xr_simulator.tscn" id="2_jyy8p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7anml"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ks6vw"]
+material = SubResource("StandardMaterial3D_7anml")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_igr12"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_j4og6"]
+material = SubResource("StandardMaterial3D_igr12")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="Environment" id="Environment_woidg"]
+
+[node name="BasicSceneMARK TESTING" type="Node3D"]
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+script = ExtResource("1_ycatt")
+xr_simulator_scene = ExtResource("2_jyy8p")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="XROrigin3D"]
+
+[node name="SimulatorButton" type="Button" parent="XROrigin3D/CanvasLayer"]
+unique_name_in_owner = true
+offset_right = 8.0
+offset_bottom = 8.0
+toggle_mode = true
+text = "Toggle Simulator"
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"left_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftHand"]
+mesh = SubResource("SphereMesh_ks6vw")
+
+[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"right_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightHand"]
+mesh = SubResource("SphereMesh_j4og6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_woidg")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.123498, 0.992345, 0, -0.992345, 0.123498, 0, 14.9409, 0)
+
+[node name="GroundPlane" type="CSGBox3D" parent="."]
+size = Vector3(10, 0.1, 10)

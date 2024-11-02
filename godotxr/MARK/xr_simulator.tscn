@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjtgldockyfwh"]
+
+[ext_resource type="Script" path="res://MARK/xr_simulator.gd" id="1_10tsq"]
+
+[node name="XRSimulator" type="Node3D" node_paths=PackedStringArray("camera_point", "neck", "left_hand", "right_hand")]
+script = ExtResource("1_10tsq")
+camera_point = NodePath("neck/eyes")
+neck = NodePath("neck")
+left_hand = NodePath("leftHand")
+right_hand = NodePath("rightHand")
+
+[node name="neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32689, 0)
+
+[node name="eyes" type="Node3D" parent="neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.339748, 0)
+
+[node name="leftHand" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.503632, 1.0806, -0.522588)
+
+[node name="rightHand" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.504, 1.081, -0.523)
