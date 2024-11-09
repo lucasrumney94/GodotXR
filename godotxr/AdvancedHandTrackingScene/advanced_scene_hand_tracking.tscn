@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgt207cpkctvm"]
+
+[ext_resource type="Script" path="res://BasicControllerScene/OpenXRInit.gd" id="1_2j6h5"]
+[ext_resource type="PackedScene" uid="uid://byif52d1xkl3u" path="res://BasicHandTrackingScene/pickup_handler.tscn" id="2_v8ove"]
+[ext_resource type="PackedScene" uid="uid://d22k0sp2hinew" path="res://BasicHandTrackingScene/LeftHandHumanoid.gltf" id="3_vjidc"]
+[ext_resource type="PackedScene" uid="uid://dlswhmq6s52gu" path="res://BasicHandTrackingScene/RightHandHumanoid.gltf" id="4_d30ar"]
+
+[sub_resource type="Environment" id="Environment_km7il"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_km7il")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.123498, 0.992345, 0, -0.992345, 0.123498, 0, 14.9409, 0)
+
+[node name="GroundPlane" type="CSGBox3D" parent="."]
+size = Vector3(10, 0.1, 10)
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+script = ExtResource("1_2j6h5")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="LeftHandController" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"left_hand"
+pose = &"pose"
+show_when_tracked = true
+
+[node name="PickupHandler" parent="XROrigin3D/LeftHandController" instance=ExtResource("2_v8ove")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0, 0)
+script = null
+
+[node name="RightHandController" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"right_hand"
+pose = &"pose"
+show_when_tracked = true
+
+[node name="PickupHandler" parent="XROrigin3D/RightHandController" instance=ExtResource("2_v8ove")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0, 0)
+script = null
+
+[node name="LeftHandMesh" type="XRNode3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"/user/hand_tracker/left"
+show_when_tracked = true
+
+[node name="LeftHandHumanoid2" parent="XROrigin3D/LeftHandMesh" instance=ExtResource("3_vjidc")]
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/LeftHandMesh/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" index="1"]
+
+[node name="RightHandMesh" type="XRNode3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"/user/hand_tracker/right"
+show_when_tracked = true
+
+[node name="RightHandHumanoid2" parent="XROrigin3D/RightHandMesh" instance=ExtResource("4_d30ar")]
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/RightHandMesh/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" index="1"]
+hand_tracker = &"/user/hand_tracker/right"
+
+[editable path="XROrigin3D/LeftHandMesh/LeftHandHumanoid2"]
+[editable path="XROrigin3D/RightHandMesh/RightHandHumanoid2"]

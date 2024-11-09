@@ -1,22 +1,22 @@
 [gd_scene load_steps=3 format=3 uid="uid://ct055b6b70a5h"]
 
-[ext_resource type="Script" path="res://OpenXRInit.gd" id="1_86iec"]
+[ext_resource type="Script" path="res://BasicControllerScene/OpenXRInit.gd" id="1_n4st1"]
 
 [sub_resource type="Environment" id="Environment_woidg"]
 
 [node name="BasicScene" type="Node3D"]
 
-[node name="XROrigin3D" type="XROrigin3D" parent="."]
-script = ExtResource("1_86iec")
+[node name="XROrigin3DControllers" type="XROrigin3D" parent="."]
+script = ExtResource("1_n4st1")
 
-[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3DControllers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
-[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+[node name="LeftHand" type="XRController3D" parent="XROrigin3DControllers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"left_hand"
 
-[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+[node name="RightHand" type="XRController3D" parent="XROrigin3DControllers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 
